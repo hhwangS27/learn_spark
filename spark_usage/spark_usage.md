@@ -18,7 +18,7 @@ df = spark.read.csv(inputs, schema = givenschema(), sep = ' ').withcolumn('filen
 > In pyspark, we do not need to create a spark session. It already has a spark
 > session called `spark`.
 
-# [pyspark.sql.DataFrame](https://spark.apache.org/docs/latest/api/python/pyspark.sql.html?highlight=explode#pyspark.sql.DataFrame)
+# [class pyspark.sql.DataFrame](https://spark.apache.org/docs/latest/api/python/pyspark.sql.html?#pyspark.sql.DataFrame)
 
 + `drop(\*cols)`
 
@@ -33,3 +33,5 @@ df = spark.read.csv(inputs, schema = givenschema(), sep = ' ').withcolumn('filen
   ```
 
 + explode(\*exprs): one line becomes multiple lines
+
+# [class pyspark.sql.Column](https://spark.apache.org/docs/latest/api/python/pyspark.sql.html?#pyspark.sql.Column)
