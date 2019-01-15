@@ -20,6 +20,8 @@ export PATH=$PATH:$JAVA_HOME/bin
 If you run spark on your own computer, there is no need of Hadoop.
 Hadoop is for cluster which offers YARN and HDFS.  
 
+Just download the spark file, extract it and config as below:
+
 In `.bashrc`
 
 ```

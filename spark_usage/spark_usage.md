@@ -18,3 +18,18 @@ df = spark.read.csv(inputs, schema = givenschema(), sep = ' ').withcolumn('filen
 > In pyspark, we do not need to create a spark session. It already has a spark
 > session called `spark`.
 
+# [pyspark.sql.DataFrame](https://spark.apache.org/docs/latest/api/python/pyspark.sql.html?highlight=explode#pyspark.sql.DataFrame)
+
++ `drop(\*cols)`
+
++ `cache()`
+
++ `coalesce(numPartitions)`
+  > Returns a new DataFrame that has exactly numPartitions partitions.
+
++ `agg(\*exprs)`: multiple lines becomes one line
+  ```
+  df.agg(  F.min( df['age'] )  )
+  ```
+
++ explode(\*exprs): one line becomes multiple lines
