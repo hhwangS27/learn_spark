@@ -34,7 +34,9 @@ cities.printSchema()
 
 > Creates a user defined function (UDF).
 
-### [Pandas UDFs (Vectorized UDFs)](https://www.jianshu.com/p/87d70918e16e)
+### [Pandas UDFs (Vectorized UDFs)](https://spark.apache.org/docs/latest/sql-pyspark-pandas-with-arrow.html)
+
+[Here is another introduction.](https://www.jianshu.com/p/87d70918e16e)
 
 
 ## Tpyes
