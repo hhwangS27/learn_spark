@@ -38,12 +38,19 @@ cities.printSchema()
 
 [Here is another introduction.](https://www.jianshu.com/p/87d70918e16e)
 
+[Here is an another introduction.](https://blog.csdn.net/lsshlsw/article/details/79932643)
+
+
 #### Three ways to use `pandas_udf`
+
+Before using `pandas_udf`, make sure you have `PyArrow` installed.
+You can use `$pip install pyspark[sql]` to install.
 
 ##### use decorator
 ```python
 from pyspark.sql import functions as F
 from pyspark.sql import types as T
+import pandas as pd
 
 
 @F.pandas_udf(returnType=T.ArrayType(T.StringType()))
@@ -76,6 +83,7 @@ df_amz.select( tokenizer(df_amz['title']) ).show()
 ```python
 from pyspark.sql import functions as F
 from pyspark.sql import types as T
+import pandas as pd
 
 def tokenizer_func(a):
     return a.apply(lambda x: x.split())
