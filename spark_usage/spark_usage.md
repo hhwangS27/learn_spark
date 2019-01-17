@@ -38,6 +38,74 @@ cities.printSchema()
 
 [Here is another introduction.](https://www.jianshu.com/p/87d70918e16e)
 
+#### Three ways to use `pandas_udf`
+
+##### use decorator
+```python
+from pyspark.sql import functions as F
+from pyspark.sql import types as T
+
+
+@F.pandas_udf(returnType=T.ArrayType(T.StringType()))
+def tokenizer(a):
+    return a.apply(lambda x: x.split())
+
+
+amz = pd.Series(['apple 16G made in china', 'lenovo 256g made in china', 'chrome 0G made in america'])
+df_amz = spark.createDataFrame(pd.DataFrame(amz, columns=["title"]))
+df_amz.show()
+df_amz.select( tokenizer(df_amz['title']) ).show()
+
+#+--------------------+
+#|               title|
+#+--------------------+
+#|apple 16G made in...|
+#|lenovo 256g made ...|
+#|chrome 0G made in...|
+#+--------------------+
+#
+#+--------------------+
+#|    tokenizer(title)|
+#+--------------------+
+#|[apple, 16G, made...|
+#|[lenovo, 256g, ma...|
+#|[chrome, 0G, made...|
+#+--------------------+
+```
+##### use udf function 
+```python
+from pyspark.sql import functions as F
+from pyspark.sql import types as T
+
+def tokenizer_func(a):
+    return a.apply(lambda x: x.split())
+tokenizer = F.pandas_udf(tokenizer_func, returnType=T.ArrayType(T.StringType()) )
+
+
+amz = pd.Series(['apple 16G made in china', 'lenovo 256g made in china', 'chrome 0G made in america'])
+df_amz = spark.createDataFrame(pd.DataFrame(amz, columns=["title"]))
+df_amz.show()
+df_amz.select( tokenizer(df_amz['title']) ).show()
+
+
+#+--------------------+
+#|               title|
+#+--------------------+
+#|apple 16G made in...|
+#|lenovo 256g made ...|
+#|chrome 0G made in...|
+#+--------------------+
+#
+#+---------------------+
+#|tokenizer_func(title)|
+#+---------------------+
+#| [apple, 16G, made...|
+#| [lenovo, 256g, ma...|
+#| [chrome, 0G, made...|
+#+---------------------+
+```
+##### use `pyspark`.udf.register
+
 
 ## Tpyes
 
