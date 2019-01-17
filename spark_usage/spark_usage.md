@@ -64,6 +64,9 @@ Supported types are:
 * StructField
 * StructType
 
+Be careful, some of the type need specify the element type.
+> For example: for a string list you should write like this: `T.ArrayType(T.String())`
+
 ## Input/Output
 
 ```
