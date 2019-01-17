@@ -211,5 +211,33 @@ df.write.csv('output', compression='lz4', mode='append')
 
    > Concatenates multiple input string columns together into a single string column, using the given separator.
 
+# SQL Query using pyspark
 
+```
+spark.read.csv(inputs, schema = givenSchema(), sep = ',').createOrReplaceTempView('w_')
 
+spark.sql("""
+        SELECT date, station, value, observation
+        FROM w_
+        WHERE
+        (observation = 'TMAX' or observation = 'TMIN')
+        AND
+        qflag IS NULL
+        """).cache().createOrReplaceTempView('w_')
+
+sql_example =
+"""
+    SELECT today.doy,
+           today.latitude,
+           today.longitude,
+           today.elevation,
+           yesterday.tmax AS yesterday_tmax, today.tmax
+    FROM
+    __THIS__ as today
+    INNER JOIN
+    __THIS__ as yesterday
+    ON today.doy = yesterday.doy + 1
+       AND
+       today.station = yesterday.station
+"""
+```
