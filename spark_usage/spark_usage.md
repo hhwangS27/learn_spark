@@ -36,11 +36,45 @@ cities.printSchema()
 
 > Creates a user defined function (UDF).
 
+```
+from pyspark.sql import functions as F
+from pyspark.sql import types as T
+
+@F.udf( returnType=T.ArrayType(T.StringType()) )
+def tokenizer(a):
+    return a.split()
+
+
+amz = pd.Series(['apple 16G made in china', 'lenovo 256g made in china', 'chrome 0G made in america'])
+df_amz = spark.createDataFrame(pd.DataFrame(amz, columns=["title"]))
+df_amz.show()
+df_amz.select( tokenizer(df_amz['title']) ).show()
+
+#+--------------------+
+#|               title|
+#+--------------------+
+#|apple 16G made in...|
+#|lenovo 256g made ...|
+#|chrome 0G made in...|
+#+--------------------+
+#
+#+--------------------+
+#|    tokenizer(title)|
+#+--------------------+
+#|[apple, 16G, made...|
+#|[lenovo, 256g, ma...|
+#|[chrome, 0G, made...|
+#+--------------------+
+```
+
 ### [Pandas UDFs (Vectorized UDFs)](https://spark.apache.org/docs/latest/sql-pyspark-pandas-with-arrow.html)
 
 [Here is another introduction.](https://www.jianshu.com/p/87d70918e16e)
 
 [Here is an another introduction.](https://blog.csdn.net/lsshlsw/article/details/79932643)
+
+Notice the code below which is different from python udf, as the input is
+the whole column not one element of that column.
 
 
 #### Three ways to use `pandas_udf`
