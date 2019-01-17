@@ -1,5 +1,7 @@
 An useful [intro](https://blog.csdn.net/github_38414650/article/details/80910677).
 
+# [Cluster Mode Overview](https://spark.apache.org/docs/latest/cluster-overview.html#cluster-manager-types)
+
 # basic frame
 
 Spark2.0 use spark session instead of spark context as the main entry point.
